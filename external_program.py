@@ -13,7 +13,7 @@ def eggholder(x, y):
     Returns:
         float: Value of the Eggholder function.
     """
-    term1 = -(y + 47) * math.sin(math.sqrt(abs(x/2 + (y + 47))))
+    term1 = -(y + 47) * math.sin(math.sqrt(abs(x / 2 + (y + 47))))
     term2 = -x * math.sin(math.sqrt(abs(x - (y + 47))))
     return term1 + term2
 
