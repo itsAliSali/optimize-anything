@@ -7,6 +7,7 @@
 - [x] implement PSO in PyMoo
 - [x] add timeout mechanism to external function call.
 - [x] read optimizaiton params from config file.
-- [ ] unittest ? 
-- [ ] add requirement.txt file
+- [x] unittest  
+- [x] add requirement.txt file
+- [ ] github action ?
 - [ ] write an instruction on how to run the code (Update readme file).
