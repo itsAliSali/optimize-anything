@@ -35,7 +35,7 @@ class ExternalProblem(Problem):
                 [(ind[0], ind[1]) for ind in X]
             )
         out["F"] = np.array(results)
-
+        
     def _evaluate_individual(self, x, y):
         """
         Evaluate a single individual by running the external program.
@@ -68,7 +68,7 @@ class GlobalOptimizer:
             termination,
             seed=self.config.seed,
             callback=OptimizationCallback(),
-            verbose=True
+            verbose=False
         )
         logging.info(f"Global optimization result: fun: {result.F}, x: {result.X}")
         return result
