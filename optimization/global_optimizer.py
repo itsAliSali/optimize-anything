@@ -1,6 +1,6 @@
 import numpy as np
 from pymoo.core.problem import Problem
-from pymoo.algorithms.soo.nonconvex.ga import GA
+from pymoo.algorithms.soo.nonconvex.pso import PSO
 from pymoo.core.callback import Callback
 from pymoo.optimize import minimize
 from pymoo.termination import get_termination
@@ -19,7 +19,6 @@ class OptimizationCallback(Callback):
         best_F = algorithm.opt[0].F[0]
         best_X = algorithm.opt[0].X
         logging.info(f"Generation {gen}: Best fitness = {best_F}, Best X = {best_X}")
-        # print(f"Generation {gen}: Best fitness = {best}")
 
 
 class ExternalProblem(Problem):
@@ -42,7 +41,7 @@ class ExternalProblem(Problem):
         Evaluate a single individual by running the external program.
         """
         from util.external_runner import run_external_program
-        return run_external_program(x, y, self.config.timeout)
+        return run_external_program(x, y, self.config)
 
 
 class GlobalOptimizer:
@@ -55,7 +54,7 @@ class GlobalOptimizer:
         problem = ExternalProblem(self.config)
 
         # Initialize the genetic algorithm with the population size
-        algorithm = GA(
+        algorithm = PSO(
             pop_size=self.config.pop_size,
             eliminate_duplicates=True
         )

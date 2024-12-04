@@ -1,6 +1,7 @@
 import configparser
 import logging
 
+
 class Config:
     def __init__(self, config_file="config.ini"):
         self.config = configparser.ConfigParser()
@@ -18,6 +19,7 @@ class Config:
         self.y0 = self.config["InitialGuess"].getfloat("y0", 0)
 
         self._setup_logging()
+        logging.info("Configuration and logging initialized.")
 
     def _setup_logging(self):
         logging.basicConfig(
@@ -25,7 +27,6 @@ class Config:
             level=logging.INFO,
             format="%(asctime)s - %(levelname)s - %(message)s"
         )
-        logging.info("Configuration and logging initialized.")
 
     def __repr__(self):
         return (
@@ -34,3 +35,6 @@ class Config:
             f"timeout={self.timeout}, x_min={self.x_min}, x_max={self.x_max}, "
             f"x0={self.x0}, y0={self.y0})"
         )
+
+    def setup_logging(self):
+        self._setup_logging()

@@ -1,18 +1,22 @@
 import subprocess
 import logging
 
-def run_external_program(x, y, timeout):
+
+def run_external_program(x, y, config):
     """
     Runs an external program to compute the Eggholder function value with a timeout.
 
     Args:
         x (float): First parameter.
         y (float): Second parameter.
-        timeout (int): Timeout in seconds.
+        config (Config): Configuration from the config file.
 
     Returns:
         float: The result of the program execution to optimize, or a high penalty if the process fails or times out.
     """
+
+    config.setup_logging()
+    
     try:
         # Run the external program with the given timeout
         result = subprocess.run(
@@ -20,7 +24,7 @@ def run_external_program(x, y, timeout):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            timeout=timeout  # Use the timeout from configuration
+            timeout=config.timeout
         )
         if result.returncode != 0:
             logging.error(f"External program failed with error: {result.stderr}")
@@ -30,7 +34,7 @@ def run_external_program(x, y, timeout):
         return float(result.stdout.strip())
 
     except subprocess.TimeoutExpired:
-        logging.error(f"External program timed out after {timeout} seconds for input ({x}, {y}).")
+        logging.error(f"External program timed out after {config.timeout} seconds for input ({x}, {y}).")
         return float('inf')  # High penalty for timeout
 
     except Exception as e:
